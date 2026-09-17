@@ -1,0 +1,28 @@
+@extends('layouts.app')
+
+@section('title', 'Tambah Kategori')
+
+@section('content')
+    <p><a href="{{ route('categories.index') }}">&larr; Kembali ke daftar kategori</a></p>
+    <h1>Tambah Kategori</h1>
+
+    <form action="{{ route('categories.store') }}" method="POST" style="max-width: 500px;">
+        @csrf
+
+        <label for="nama_kategori">Nama Kategori</label>
+        <input type="text" name="nama_kategori" id="nama_kategori" value="{{ old('nama_kategori') }}">
+        @error('nama_kategori')
+            <div class="error">{{ $message }}</div>
+        @enderror
+
+        <label for="deskripsi">Deskripsi (opsional)</label>
+        <textarea name="deskripsi" id="deskripsi" rows="4">{{ old('deskripsi') }}</textarea>
+        @error('deskripsi')
+            <div class="error">{{ $message }}</div>
+        @enderror
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn">Simpan</button>
+        </div>
+    </form>
+@endsection
