@@ -1,40 +1,42 @@
-{{-- File: resources/views/layouts/app.blade.php --}}
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Perpustakaan Digital Kampus')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Perpustakaan')</title>
+
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: sans-serif; margin: 0; color: #1f2937; }
-        nav { background: #1e3a8a; padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-        nav .brand { color: #fff; font-weight: bold; font-size: 18px; }
-        nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
-        nav ul li a { color: #cbd5e1; text-decoration: none; padding: 6px 4px; }
-        nav ul li a.active { color: #fff; font-weight: bold; border-bottom: 2px solid #fff; }
-        main { max-width: 900px; margin: 0 auto; padding: 30px 40px; }
+        body { font-family: sans-serif; margin: 40px; }
         table { border-collapse: collapse; width: 100%; margin-top: 16px; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
-        .alert-success { background: #d1fae5; color: #065f46; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; }
-        .btn { display: inline-block; padding: 6px 14px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
-        form.inline { display: inline; }
-        label { display: block; margin-top: 12px; font-weight: bold; }
-        input, select, textarea { width: 100%; padding: 6px; margin-top: 4px; box-sizing: border-box; }
-        .error { color: #b91c1c; font-size: 14px; margin-top: 4px; }
-        footer { text-align: center; padding: 20px; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb; margin-top: 40px; }
+        th { background: #f3f4f6; }
+        .btn { padding: 6px 12px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; display: inline-block; }
+        .btn-sm { padding: 4px 8px; font-size: 12px; }
+        .btn-success { background: #16a34a; }
+        .btn-danger { background: #dc2626; }
+        .inline { display: inline; }
+        
+        /* TUGAS 2: CSS Badge Status Berwarna */
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: white; display: inline-block; }
+        .badge-dipinjam { background-color: #d97706; }    /* Warna Oranye */
+        .badge-dikembalikan { background-color: #16a34a; }/* Warna Hijau */
+        .badge-terlambat { background-color: #dc2626; }   /* Warna Merah */
     </style>
 </head>
 <body>
-    @include('partials.navbar')
+    <nav style="margin-bottom: 20px;">
+        <a href="{{ route('books.index') }}">Buku</a> |
+        <a href="{{ route('categories.index') }}">Kategori</a> |
+        <a href="{{ route('members.index') }}">Anggota</a> |
+        <a href="{{ route('loans.index') }}">Peminjaman</a>
+    </nav>
 
-    <main>
-        @include('partials.alert')
+    @if(session('success'))
+        <div style="background: #dcfce7; color: #15803d; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        @yield('content')
-    </main>
-
-    <footer>
-        &copy; {{ date('Y') }} Sistem Perpustakaan Digital Kampus
-    </footer>
+    @yield('content')
 </body>
 </html>

@@ -7,20 +7,13 @@ use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('books.index');
 });
 
-// Resource routes untuk praktikum
+Route::resource('categories', CategoryController::class);
 Route::resource('books', BookController::class);
-Route::resource('categories', CategoryController::class)->except(['show']);
 Route::resource('members', MemberController::class);
-Route::resource('loans', LoanController::class);
-Route::put('/loans/{id}/kembalikan', [LoanController::class, 'kembalikan'])
-    ->name('loans.kembalikan');
 
-// Tugas Mandiri Pertemuan 2: Route Grouping Admin
-Route::prefix('admin')->group(function () {
-    Route::get('/info', function () {
-        return 'Panel Informasi Administrator Perpustakaan';
-    })->name('admin.info');
-});
+// Route khusus tugas kembalikan buku
+Route::patch('loans/{id}/kembalikan', [LoanController::class, 'kembalikan'])->name('loans.kembalikan');
+Route::resource('loans', LoanController::class);
