@@ -2,12 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory; // Impor di sini
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Member extends Model
 {
-    protected $guarded = [];
+    use HasFactory; // Pasang trait di sini
+
+    protected $fillable = [
+        'nama',
+        'nim',
+        'email',
+        'nomor_telepon',
+        'alamat',
+        'status',
+    ];
 
     public function loans(): HasMany
     {

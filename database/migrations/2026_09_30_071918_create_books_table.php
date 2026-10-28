@@ -17,6 +17,7 @@ return new class extends Migration
         $table->string('penulis');
         $table->string('penerbit');
         $table->integer('tahun_terbit');
+        $table->string('isbn')->nullable();
         $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
         $table->integer('stok')->default(0);
         $table->timestamps();
